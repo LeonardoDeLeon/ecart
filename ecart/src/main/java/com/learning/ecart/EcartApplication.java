@@ -3,10 +3,12 @@ package com.learning.ecart;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.learning.ecart.domain.User;
 import com.learning.ecart.repository.UserRepository;
@@ -14,6 +16,9 @@ import com.learning.ecart.util.CreateTestDataUtil;
 
 @SpringBootApplication
 public class EcartApplication {
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EcartApplication.class, args);
@@ -31,18 +36,18 @@ public class EcartApplication {
 		return args -> {
 			repo.deleteAll();
 			
-			//create  a couple of users for demo
+			//create a couple of users for demo
 			User steve = new User(CreateTestDataUtil.createObjectId().toHexString(),
 			           				"Steve",
-			           				"pass",
+			           				encoder.encode("pass"),
 			           				"customer",
 			           				"steve@gmail.com",
 			           				"2/2/1940");
 			           
 			User jacob = new User(CreateTestDataUtil.createObjectId().toHexString(),
 					   				"Jacob",
-					   				"pass",
-					   				"customer",
+					   				encoder.encode("pass"),
+					   				"customer,admin",
 					   				"jacob@gmail.com",
 					   				"2/2/1980");
 			

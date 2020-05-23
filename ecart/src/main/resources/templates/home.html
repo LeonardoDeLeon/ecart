@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Spring Security Example</title>
+    </head>
+    <body>
+        <h1>Welcome to the ECart Home page!</h1>
+        
+		<p>To begin, please <a th:href="@{/login}">Sign In</a></p>
+		<p>Or, if already Sign In go to <a th:href="@{/hello}">Member's</a> page</p>
+    </body>
+</html>
