@@ -36,14 +36,15 @@ public class EcartApplication {
 		return args -> {
 			repo.deleteAll();
 			
-			//create a couple of users for demo
+			//create a couple of users for demo, steve is member only 
 			User steve = new User(CreateTestDataUtil.createObjectId().toHexString(),
 			           				"Steve",
 			           				encoder.encode("pass"),
 			           				"customer",
 			           				"steve@gmail.com",
 			           				"2/2/1940");
-			           
+			
+		    // jacob is member and admin priveledge
 			User jacob = new User(CreateTestDataUtil.createObjectId().toHexString(),
 					   				"Jacob",
 					   				encoder.encode("pass"),

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Registration Form</title>
+<!-- link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" /
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+</head>
+<body style="background-color: #ededed;">
+	<div style="background-color: #337ab7; height: 50px;"></div>
+	<div class="container-fluid" style="margin-top: 30px;">
+
+		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
+			
+			<form autocomplete="off" action="#" th:action="@{/register}" th:object="${userForm}" method="post" class="form-signin" role="form">
+				<h3 class="form-signin-heading">Registration Form</h3>
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control" />
+					</div>
+					<div>
+						<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">..</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+					</div>
+					<div>
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">..</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+					</div>
+					<div>
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">..</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password" class="form-control" />
+					</div>
+					<div>
+						<span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">..</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<input type="text" th:field="*{dob}" placeholder="Date of birth (d/MM/YYYY)" class="form-control" />
+					</div>
+					<div>
+						<span th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}">..</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="">
+						<button type="submit" class="btn btn-primary btn-block">Register User</button>
+					</div>
+				</div>
+				<a href="/login">Cancel</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
