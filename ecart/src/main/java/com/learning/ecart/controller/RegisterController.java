@@ -55,20 +55,11 @@ public class RegisterController {
    @RequestMapping(value = "/register", method = RequestMethod.POST)
    public String saveRegister(Model model,
 		   			@ModelAttribute("userForm") @Validated UserForm userForm,
-		   			BindingResult result) {
+		   			BindingResult result) throws Exception {
  
       // Validate result of the form
-      User newUser= null;
       model.addAttribute("userForm", userForm);
-      try {
-         newUser = userService.initUserFromForm(userForm);
-      }
-      // catch any errors in the form!
-      catch (Exception e) {
-         model.addAttribute("errorMessage", "Error: " + e.getMessage());
-         return "register";
-      }
-      
+      User newUser = userService.initUserFromForm(userForm);   
       // if form has errors then prompt user to make corrections in the form
       if (result.hasErrors()) return "register";
       

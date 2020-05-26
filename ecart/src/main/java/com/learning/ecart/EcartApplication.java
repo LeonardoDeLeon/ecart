@@ -10,7 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.learning.ecart.discount.AppleDiscount;
+import com.learning.ecart.discount.BananaDiscount;
+import com.learning.ecart.discount.MangoDiscount;
+import com.learning.ecart.discount.OrangeDiscount;
+import com.learning.ecart.domain.Product;
 import com.learning.ecart.domain.User;
+import com.learning.ecart.repository.ProductRepository;
 import com.learning.ecart.repository.UserRepository;
 import com.learning.ecart.util.CreateTestDataUtil;
 
@@ -32,11 +38,11 @@ public class EcartApplication {
 	 * @return
 	 */
 	@Bean
-	public CommandLineRunner demoData(UserRepository repo) {
+	public CommandLineRunner demoUserData(UserRepository repo) {
 		return args -> {
 			repo.deleteAll();
 			
-			//create a couple of users for demo, steve is member only 
+			// create a couple of users for demo, steve is member only 
 			User steve = new User(CreateTestDataUtil.createObjectId().toHexString(),
 			           				"Steve",
 			           				encoder.encode("pass"),
@@ -58,7 +64,50 @@ public class EcartApplication {
 			users.add(jacob);
 			
 			// save them in the repository
-			repo.saveAll(users);		
+			repo.saveAll(users);	
+		};
+	}
+	
+	@Bean
+	public CommandLineRunner demoProductData (ProductRepository repo) {
+		return args -> {
+			repo.deleteAll();
+			// create a couple of products for demo
+			Product apple = new Product(CreateTestDataUtil.createObjectId().toHexString(),
+											"apple",
+											"Sometimes red, sometimes green",
+											0.45,
+											new AppleDiscount(),
+											10);
+			
+			Product banana = new Product(CreateTestDataUtil.createObjectId().toHexString(),
+											"banana",
+											"Gwen Stefani's favorite fruit",
+											0.25,
+											new BananaDiscount(),
+											20);
+			
+			Product orange = new Product(CreateTestDataUtil.createObjectId().toHexString(),
+											"orange",
+											"Use to color white clothing",
+											0.35,
+											new OrangeDiscount(),
+											10);
+			
+			Product mango = new Product(CreateTestDataUtil.createObjectId().toHexString(),
+											"mango",
+											"The King of fruits",
+											1.09,
+											new MangoDiscount(),
+											15);
+			
+			List<Product> products = new ArrayList<>();
+			products.add(apple);
+			products.add(banana);
+			products.add(orange);
+			products.add(mango);
+			
+			repo.saveAll(products);
 		};
 	}
 }
