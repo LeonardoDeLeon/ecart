@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.learning.ecart.domain.Product;
+import com.learning.ecart.exception.ProductNotFoundException;
 import com.learning.ecart.repository.ProductRepository;
 
 @Service
@@ -30,4 +31,14 @@ public class ProductService {
 		return repo.findByName(name);
 	}
 
+    /**
+     * retrieve optional product object
+     * @param id
+     * @return Optional Product object
+     */
+    public Product findProductById(String id) {
+    	Optional<Product> optional = repo.findById(id);
+    	return optional.orElseThrow(() ->
+    	    new ProductNotFoundException("ProductService.PRODUCT_NOT_FOUND, id = "+id));
+    }
 }
