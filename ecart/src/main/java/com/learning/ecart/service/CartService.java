@@ -164,4 +164,17 @@ public class CartService {
 		}
     	return cart;
     }
+    
+    /**
+     * empty the cart
+     * @return cart that has been emptied
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public Cart emptyCart() throws FileNotFoundException, IOException {
+    	Map <Product,Integer> products = reloadCurrent();
+    	products.clear();
+    	Cart cart = reloadCurrent(products);
+    	return cart;
+    }
 }
