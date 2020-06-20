@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.learning.ecart.service.CartService;
 
@@ -27,4 +28,11 @@ public class CartViewController {
 		model.addAttribute("carts",service.emptyCart());
 		return "cartview";
 	}
+
+	@GetMapping("/removeproduct/{id}")
+	public String removeProduct(@PathVariable String id, Model model) throws FileNotFoundException, IOException {
+		model.addAttribute("carts",service.removeProductFromCart(id));
+		return "cartview";
+	}
+	
 }

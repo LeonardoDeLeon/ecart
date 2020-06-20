@@ -34,6 +34,20 @@
                		<span th:text="${product.value}"></span>
              	</div>
        		</td>
+       		<td>
+       			<div th:each="product : ${cart.products}">
+       				<a th:href="@{'/productListing/add/'+${product.key.id}}">
+			        	<span>Add</span>
+			    	</a>
+       			</div>
+			</td>
+       		<td>
+       			<div th:each="product : ${cart.products}">
+				    <a th:href="@{'/removeproduct/'+${product.key.id}}">
+				        <span>Remove</span>
+				    </a>
+			    </div>
+			</td>
        </tr>
 		</table>
         <p>Click <a th:href="@{/productListing}">here</a> to continue shopping</p>

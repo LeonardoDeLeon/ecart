@@ -177,4 +177,31 @@ public class CartService {
     	Cart cart = reloadCurrent(products);
     	return cart;
     }
+    
+    /**
+     * remove a product item by id from the cart
+     * @param id
+     * @return cart with the updated product items
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public Cart removeProductFromCart(String id) throws FileNotFoundException, IOException {
+    	Product product = repo.findProductById(id);
+    	
+    	Map<Product,Integer> products = reloadCurrent();
+    	
+    	int counter = 0;
+    	
+    	if (products.containsKey(product)) {
+    		counter = products.get(product);
+    		--counter;
+    		if (counter == 0) {
+    			products.remove(product);
+    		} else {
+    			products.replace(product, counter);
+    		}	
+    	}
+    	cart = reloadCurrent(products);
+    	return cart;
+    }
 }
